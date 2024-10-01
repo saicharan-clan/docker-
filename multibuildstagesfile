@@ -19,7 +19,7 @@ FROM python:3.9
 
 #Working directory
 #if you want to use working directory with diffrent name you can do but you need to provide correct path like WORKDIR /app in build and if you used WORKDIR /dot as 
-#working directory for final stage whlie copying you need to copy from /app /dot name of path will be /app/dot
+#working directory for final stage whlie copying you need to copy from /app /dot name of path will be COPY --from=builder /app/dot
 WORKDIR /app
 
 # Copy only the required packages
