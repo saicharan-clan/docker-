@@ -1,0 +1,21 @@
+#Build Stage
+
+FROM python:3.9 AS builder
+
+#Working directory
+WORKDIR /app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Final stage using a distroless image
+FROM gcr.io/distroless/python3
+
+#Working directory
+WORKDIR /app
+
+# Copy only the required packages
+COPY --from=builder /usr/local/lib/python3.9/site-packages/flask /usr/local/lib/python3.9/site-packages/flask
+COPY --from=builder /usr/local/lib/python3.9/site-packages/requests /usr/local/lib/python3.9/site-packages/requests
+COPY . .
+EXPOSE 82
+CMD ["app.py"]  
