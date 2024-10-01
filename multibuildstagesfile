@@ -1,23 +1,39 @@
 #Build Stage
 
+#Here i used alias name for base image as builder
 FROM python:3.9 AS builder
 
 #Working directory
 WORKDIR /app
+
+#Basically it copies all the dependencies in requirements.txt to container directory /app
 COPY requirements.txt .
+
+#It will install all the dependencies present in requirements.txt
 RUN pip install -r requirements.txt
 
 #Final stage
-
+#Using the same base image for both the build stage and the final stage in a multi-stage Docker build ensures consistency in the Python environment.By maintaining 
+#thesame environment, you minimize the risk of runtime issues and can effectively manage package installations and their locations within the Docker image.
 FROM python:3.9
 
 #Working directory
+#if you want to use working directory with diffrent name you can do but you need to provide correct path like /app in build and if you used dot as working directory 
+#name of path will be /app/dot
 WORKDIR /app
 
 # Copy only the required packages
 COPY --from=builder /usr/local/lib/python3.9/site-packages/flask /usr/local/lib/python3.9/site-packages/flask
 COPY --from=builder /usr/local/lib/python3.9/site-packages/requests /usr/local/lib/python3.9/site-packages/requests
+
+#copy application code from source to destination
 COPY . .
+
+#process port
 EXPOSE 80
+
+#Entrypoint can't be changed
 ENTRYPOINT ["python"]
+
+#In cmd we can change configurations
 CMD ["app.py"]  
