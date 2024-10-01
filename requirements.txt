@@ -1,2 +1,5 @@
+#Flask is a lightweight web framework for building web applications.
 flask
+
+#requests is a library for making http request
 requests
