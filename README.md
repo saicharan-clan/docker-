@@ -1,2 +1,2 @@
 # docker-
-basic file
+basic file for python image
