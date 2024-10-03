@@ -1,9 +1,10 @@
 # docker commands
 for creating images: [docker build -t <imagename>:tag .]
-to check docker images run docker images command
+to check docker images run [docker images] command
 creating container [docker run -itd -p p1:p2 <imageid>] where p1 is the intance port it can be anything but p2 depends on process on which container is running
 
-AND you can push to docker hub by doing login docker hub qand using docker push command
+AND you can push to docker hub we need to use [docker login] command for login to the docker hub and for pushing docker image we use [docker push command]
+to check docker containers we use [docker ps] command
 
 # docker-
 basic file for python image 
